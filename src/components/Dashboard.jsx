@@ -1,11 +1,11 @@
 import React from "react";
-import NavBar from "./NavBar";
+import ResponsiveDrawer from "./ResponsiveDrawer";
 import { Outlet } from "react-router-dom";
 const Dashboard = () => {
   return (
     <>
       <div>
-        <NavBar />
+        <ResponsiveDrawer />
       </div>
       <div className="out">
         <Outlet />

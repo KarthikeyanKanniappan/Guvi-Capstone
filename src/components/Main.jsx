@@ -3,6 +3,7 @@ import DashboardCard from "./DashboardCard";
 import LineChart from "./LineChart";
 import { UserData } from "./Data";
 import DoughnutChart from "./Doughnut";
+import ProjectTable from "./ProjectTable";
 
 let data = [
   {
@@ -18,12 +19,12 @@ let data = [
     hours: 296,
   },
   {
-    title: "Time off hrs.",
-    hours: 32,
+    title: "Total projects",
+    hours: 2,
   },
   {
-    title: "Overtime hrs.",
-    hours: 0,
+    title: "Total Tasks",
+    hours: 4,
   },
 ];
 const Main = () => {
@@ -46,13 +47,17 @@ const Main = () => {
           return <DashboardCard key={i} card={card} />;
         })}
       </div>
-      <div className="row m-auto">
+      {/* <div className="row m-auto">
         <div style={{ width: "900px" }}>
           {<LineChart chartData={userData} />}
         </div>
         <div className="m-auto" style={{ width: "500px" }}>
           {<DoughnutChart />}
         </div>
+      </div> */}
+      <div className="mt-4">
+        <h4 className=" mb-4 text-gray-800">Project Progress</h4>
+        <ProjectTable />
       </div>
     </div>
   );
