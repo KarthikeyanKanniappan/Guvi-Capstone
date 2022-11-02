@@ -1,5 +1,5 @@
 import React from "react";
-import TopBar from "../components/TopBar";
+import TopBar from "../components/landingPage/TopBar";
 import Art from "../Asset/clipart.png";
 const Home = () => {
   return (

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import DashboardCard from "./DashboardCard";
-import LineChart from "./LineChart";
-import { UserData } from "./Data";
-import DoughnutChart from "./Doughnut";
+import { UserData } from "../charts/Data";
 import ProjectTable from "./ProjectTable";
 
 let data = [

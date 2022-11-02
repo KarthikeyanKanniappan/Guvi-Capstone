@@ -1,15 +1,15 @@
-import React,{useState} from "react";
-import LogoImage from "../Asset/logo.png";
-import "../App.css";
+import React, { useState } from "react";
+import LogoImage from "../../Asset/logo.png";
+import "../../App.css";
 const TopBar = () => {
-  const[side,setSide]=useState(false)
+  const [side, setSide] = useState(false);
   return (
-    <div >
+    <div>
       <header className="m-5">
         <div className="contain">
           <div className="logo">
             <img src={LogoImage} alt="Logo" />
-            <h3>Kanban</h3> 
+            <h3>Kanban</h3>
           </div>
           <div className="links">
             <ul>
@@ -31,9 +31,12 @@ const TopBar = () => {
               </li>
             </ul>
           </div>
-          <div onClick={()=>{
-            setSide(!side)
-          }}  className="hamburger-menu">
+          <div
+            onClick={() => {
+              setSide(!side);
+            }}
+            className="hamburger-menu"
+          >
             <div className="bar"></div>
           </div>
         </div>
