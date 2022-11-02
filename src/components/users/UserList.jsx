@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import useTable from "../reusableComponents/UseTable";
-import Diversity1Icon from "@mui/icons-material/Diversity1";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 const records = [
   {
@@ -101,7 +100,7 @@ const UserList = () => {
   return (
     <>
       <h1>Employees</h1>
-      <Paper>
+      <Paper className="overflow-auto">
         <Toolbar className="d-flex justify-content-between ">
           <button type="button" className="btn btn-primary text-black">
             <PersonAddIcon /> Add Employee
