@@ -5,6 +5,7 @@ import Main from "./components/dashboardItems/Main";
 import CreateUser from "./components/users/CreateUser";
 import UserList from "./components/users/UserList";
 import ViewProject from "./components/project/ViewProject";
+import CreateProject from "./components/project/CreateProject";
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
           <Route path="userList" element={<UserList />} />
           <Route path="createUser" element={<CreateUser />} />
           <Route path="viewProject" element={<ViewProject />} />
+          <Route path="createProject" element={<CreateProject />} />
         </Route>
       </Routes>
     </BrowserRouter>

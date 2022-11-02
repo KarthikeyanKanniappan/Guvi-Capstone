@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
-const TextEditor = () => {
+const TextEditor = ({ height }) => {
   const { quill, quillRef } = useQuill();
   const { textData, setTextData } = useState();
   useEffect(() => {
@@ -15,7 +15,7 @@ const TextEditor = () => {
 
   return (
     <div>
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", height: `${height}vh` }}>
         <div ref={quillRef} />
       </div>
     </div>
