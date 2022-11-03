@@ -6,6 +6,8 @@ import CreateUser from "./components/users/CreateUser";
 import UserList from "./components/users/UserList";
 import ViewProject from "./components/project/ViewProject";
 import CreateProject from "./components/project/CreateProject";
+import ProjectTable from "./components/project/ProjectTable";
+import TaskTable from "./components/Task/TaskTable";
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,8 @@ function App() {
           <Route path="createUser" element={<CreateUser />} />
           <Route path="viewProject" element={<ViewProject />} />
           <Route path="createProject" element={<CreateProject />} />
+          <Route path="projectList" element={<ProjectTable />} />
+          <Route path="task" element={<TaskTable />} />
         </Route>
       </Routes>
     </BrowserRouter>

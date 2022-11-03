@@ -6,7 +6,8 @@ import TaskTable from "./TaskTable";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TextEditor from "../quill/TextEditor";
-import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
+import Progress from "./Progress";
+
 const ViewProject = () => {
   const [show, setShow] = useState(false);
 
@@ -16,10 +17,6 @@ const ViewProject = () => {
     <div>
       <div className="d-flex justify-content-between mb-3">
         <h3>About Project</h3>
-        <button className="btn btn-primary mx-2">
-          <AddToPhotosIcon />
-          Add Project
-        </button>
       </div>
       <Description />
       <div className="row  mx-1">
@@ -27,7 +24,7 @@ const ViewProject = () => {
           className="col-md-12 col-xl-3 card mt-5"
           style={{ borderTop: "solid #1976D2" }}
         >
-          <b className="card-title mt-3">Team Member/s:</b>
+          <b className="card-title mt-3">Team Member/s</b>
           <div className="card-body">
             <Avatar />
             <Avatar />
@@ -38,7 +35,7 @@ const ViewProject = () => {
           style={{ borderTop: "solid #1976D2" }}
         >
           <div className="mt-3 d-flex justify-content-between">
-            <b className="card-title ">Task List:</b>
+            <b className="card-title ">Task List</b>
             <button
               className="d-flex justify-content-between btn btn-primary"
               onClick={handleShow}
@@ -93,6 +90,7 @@ const ViewProject = () => {
             <TaskTable />
           </div>
         </div>
+        <Progress />
       </div>
     </div>
   );
