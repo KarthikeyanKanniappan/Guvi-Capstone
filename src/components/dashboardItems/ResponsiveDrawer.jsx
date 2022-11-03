@@ -24,15 +24,15 @@ import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
-
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 const settings = ["Dashboard", "Logout"];
 const SideData = [
-  { title: "Dashboard", icon: <DashboardIcon /> },
-  { title: "Project", icon: <WysiwygIcon /> },
-  { title: "People", icon: <FaceIcon /> },
-  { title: "Task", icon: <TaskIcon /> },
-  { title: "Report", icon: <LeaderboardIcon /> },
+  { title: "Dashboard", icon: <DashboardIcon />, route: "" },
+  { title: "Project", icon: <WysiwygIcon />, route: "projectList" },
+  { title: "People", icon: <FaceIcon />, route: "userList" },
+  { title: "Task", icon: <TaskIcon />, route: "task" },
+  { title: "Report", icon: <LeaderboardIcon />, route: "report" },
 ];
 function ResponsiveDrawer(props) {
   const { window } = props;
@@ -55,7 +55,11 @@ function ResponsiveDrawer(props) {
       <List>
         {SideData.map((text, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              sx={{ color: "black" }}
+              as={Link}
+              to={`${text.route}`}
+            >
               <ListItemIcon>{text.icon}</ListItemIcon>
               <ListItemText primary={text.title} />
             </ListItemButton>

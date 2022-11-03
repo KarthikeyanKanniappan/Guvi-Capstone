@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import useTable from "../reusableComponents/UseTable";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { Link } from "react-router-dom";
 const records = [
   {
     fullName: "b",
@@ -102,9 +103,13 @@ const UserList = () => {
       <h1>Employees</h1>
       <Paper className="overflow-auto">
         <Toolbar className="d-flex justify-content-between ">
-          <button type="button" className="btn btn-primary text-black">
+          <Link
+            to="/portal/createUser"
+            type="button"
+            className="btn btn-primary text-black"
+          >
             <PersonAddIcon /> Add Employee
-          </button>
+          </Link>
           <TextField
             className=""
             sx={{ bgcolor: "#f1f8fc", width: "25%" }}

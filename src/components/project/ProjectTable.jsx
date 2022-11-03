@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import useTable from "../reusableComponents/UseTable";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import Dropdown from "react-bootstrap/Dropdown";
+import { Link } from "react-router-dom";
 
 const records = [
   {
@@ -70,10 +71,14 @@ const ProjectTable = () => {
       <h3>Projects</h3>
       <Paper className="overflow-auto">
         <Toolbar className="d-flex justify-content-between ">
-          <button type="button" className="btn btn-primary text-black">
+          <Link
+            to="/portal/createProject"
+            type="button"
+            className="btn btn-primary text-black"
+          >
             <AddToPhotosIcon />
             Add Project
-          </button>
+          </Link>
           <TextField
             className=""
             sx={{ bgcolor: "#f1f8fc", width: "25%" }}
@@ -112,7 +117,9 @@ const ProjectTable = () => {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">View</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/portal/viewProject">
+                          View
+                        </Dropdown.Item>
                         <Dropdown.Item href="#/action-2">Edit</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>

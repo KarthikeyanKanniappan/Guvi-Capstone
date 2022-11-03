@@ -8,19 +8,21 @@ import ViewProject from "./components/project/ViewProject";
 import CreateProject from "./components/project/CreateProject";
 import ProjectTable from "./components/project/ProjectTable";
 import TaskTable from "./components/Task/TaskTable";
+import Report from "./components/Report/Report";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/portal" element={<Dashboard />}>
-          <Route path="dashboard" element={<Main />} />
+          <Route index element={<Main />} />
           <Route path="userList" element={<UserList />} />
           <Route path="createUser" element={<CreateUser />} />
           <Route path="viewProject" element={<ViewProject />} />
           <Route path="createProject" element={<CreateProject />} />
           <Route path="projectList" element={<ProjectTable />} />
           <Route path="task" element={<TaskTable />} />
+          <Route path="report" element={<Report />} />
         </Route>
       </Routes>
     </BrowserRouter>
