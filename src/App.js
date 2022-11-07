@@ -9,6 +9,7 @@ import CreateProject from "./components/project/CreateProject";
 import ProjectTable from "./components/project/ProjectTable";
 import TaskTable from "./components/Task/TaskTable";
 import Report from "./components/Report/Report";
+import Login from "./pages/Login&signup/Login";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ function App() {
           <Route path="task" element={<TaskTable />} />
           <Route path="report" element={<Report />} />
         </Route>
+        <Route path="login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
