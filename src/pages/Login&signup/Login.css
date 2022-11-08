@@ -43,7 +43,7 @@
   z-index: 5;
   transition: 1s 0.7s ease-in-out;
 }
-form {
+.cont form {
   display: flex;
   align-items: center;
   justify-content: center;

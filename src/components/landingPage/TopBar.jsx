@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import LogoImage from "../../Asset/logo.png";
 import "../../App.css";
+import { Link } from "react-router-dom";
+import UserContext from "../../UserContext";
+import { useNavigate } from "react-router-dom";
 const TopBar = () => {
+  let navigate = useNavigate();
+  let context = useContext(UserContext);
+  const { signIn, setSignIn } = useContext(UserContext);
   const [side, setSide] = useState(false);
+  const SignInHandleClick = (e) => {
+    e.preventDefault();
+    setSignIn(false);
+    navigate("login");
+  };
+  const SignUpHandleClick = (e) => {
+    e.preventDefault();
+    setSignIn(true);
+    navigate("login");
+  };
   return (
     <div>
       <header className="m-5">
@@ -20,14 +36,14 @@ const TopBar = () => {
                 <a href="#">About</a>
               </li>
               <li>
-                <a href="#" className="btn btn-primary">
+                <Link onClick={SignInHandleClick} className="btn btn-primary">
                   Login
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="btn  btn-primary">
+                <Link onClick={SignUpHandleClick} className="btn  btn-primary">
                   Sign up
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

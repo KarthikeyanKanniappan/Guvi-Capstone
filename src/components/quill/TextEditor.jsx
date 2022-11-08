@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
+import UserContext from "../../UserContext";
 const TextEditor = ({ height }) => {
+  let context = useContext(UserContext);
   const { quill, quillRef } = useQuill();
-  const { textData, setTextData } = useState();
+  const { value, setValue } = useContext(UserContext);
+
   useEffect(() => {
     if (quill) {
       quill.on("text-change", () => {
-        console.log(quillRef.current.firstChild.innerHTML);
-        setTextData(quillRef.current.firstChild.innerHTML);
+        setValue(quill.getText());
       });
     }
   }, [quill]);

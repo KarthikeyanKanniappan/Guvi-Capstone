@@ -1,15 +1,15 @@
 import React from "react";
 
-const Avatar = () => {
+const Avatar = ({ pic, name }) => {
   return (
     <div className="d-flex d-inline mb-3 align-items-center">
       <img
-        src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+        src={pic}
         class="rounded-circle"
         style={{ width: "50px" }}
         alt="Avatar"
       />
-      <b className="mx-2">Vikki</b>
+      <b className="mx-2">{name}</b>
     </div>
   );
 };

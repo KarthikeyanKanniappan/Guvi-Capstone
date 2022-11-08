@@ -1,3 +1,4 @@
+import React, { useState, useContext, useEffect } from "react";
 import {
   Paper,
   TableBody,
@@ -7,12 +8,13 @@ import {
   TableRow,
   Toolbar,
 } from "@mui/material";
-import React, { useState } from "react";
 import useTable from "../reusableComponents/UseTable";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
-
+import UserContext from "../../UserContext";
+import axios from "axios";
+import { env } from "../../config";
 const records = [
   {
     Name: "sample Project",
@@ -48,6 +50,9 @@ const headCells = [
   { id: "action", label: "Action" },
 ];
 const ProjectTable = () => {
+  const [records, setRecords] = useState([]);
+  let context = useContext(UserContext);
+
   const [value, setValue] = useState({
     fn: (items) => {
       return items;
@@ -65,6 +70,19 @@ const ProjectTable = () => {
         else return items.filter((x) => x.Name.includes(target.value));
       },
     });
+  };
+
+  useEffect(() => {
+    getProject();
+  }, []);
+
+  let getProject = async () => {
+    try {
+      let response = await axios.get(`${env.api}/projects/projectList`);
+      setRecords(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>
@@ -99,15 +117,15 @@ const ProjectTable = () => {
                   <TableCell>{i + 1}</TableCell>
                   <TableCell>
                     <div>
-                      <b>{list.Name}</b>
-                      <p>{list.sub}</p>
+                      <b>{list.projectName}</b>
+                      <p>{list.description}</p>
                     </div>
                   </TableCell>
-                  <TableCell>{list.start}</TableCell>
-                  <TableCell>{list.Due}</TableCell>
+                  <TableCell>{list.startDate}</TableCell>
+                  <TableCell>{list.endDate}</TableCell>
                   <TableCell>
                     <span className={`badge bg-${list.color}`}>
-                      {list.status}
+                      {list.state}
                     </span>
                   </TableCell>
                   <TableCell>

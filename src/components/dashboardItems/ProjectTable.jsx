@@ -7,6 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import { Link } from "react-router-dom";
+
 function createData(name, calories, fat) {
   return { name, calories, fat };
 }
@@ -60,7 +62,13 @@ const ProjectTable = () => {
                 <span className="badge badge-info bg-info ">{row.fat}</span>
               </TableCell>
               <TableCell align="left">
-                <input className="btn btn-primary" type="button" value="view" />
+                <Link
+                  to="/portal/viewProject"
+                  className="btn btn-primary"
+                  type="button"
+                >
+                  View
+                </Link>
               </TableCell>
             </TableRow>
           ))}
