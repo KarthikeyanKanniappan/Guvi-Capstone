@@ -1,4 +1,4 @@
-import * as React from "react";
+import react, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -25,19 +25,49 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 240;
-const settings = ["Dashboard", "Logout"];
+const settings = [
+  { name: "Dashboard", route: "/portal", sign: false },
+  { name: "Logout", route: "/", sign: true },
+];
 const SideData = [
-  { title: "Dashboard", icon: <DashboardIcon />, route: "" },
-  { title: "Project", icon: <WysiwygIcon />, route: "projectList" },
-  { title: "People", icon: <FaceIcon />, route: "userList" },
-  { title: "Task", icon: <TaskIcon />, route: "task" },
-  { title: "Report", icon: <LeaderboardIcon />, route: "report" },
+  {
+    title: "Dashboard",
+    icon: <DashboardIcon />,
+    route: "",
+    Admin: false,
+  },
+  {
+    title: "Project",
+    icon: <WysiwygIcon />,
+    route: "projectList",
+    Admin: window.localStorage.getItem("Admin") === null ? true : false,
+  },
+  {
+    title: "People",
+    icon: <FaceIcon />,
+    route: "userList",
+    Admin: false,
+  },
+  {
+    title: "Task",
+    icon: <TaskIcon />,
+    route: "task",
+    Admin: window.localStorage.getItem("Admin") === null ? true : false,
+  },
+  {
+    title: "Report",
+    icon: <LeaderboardIcon />,
+    route: "report",
+    Admin: false,
+  },
 ];
 function ResponsiveDrawer(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  let navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -48,6 +78,13 @@ function ResponsiveDrawer(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const logout = (e) => {
+    e.preventDefault();
+    navigate("/");
+    localStorage.clear();
+  };
+  console.log(SideData);
   const drawer = (
     <div>
       <h2 className="mx-5 mt-4">Admin</h2>
@@ -55,14 +92,25 @@ function ResponsiveDrawer(props) {
       <List>
         {SideData.map((text, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton
-              sx={{ color: "black" }}
-              as={Link}
-              to={`${text.route}`}
-            >
-              <ListItemIcon>{text.icon}</ListItemIcon>
-              <ListItemText primary={text.title} />
-            </ListItemButton>
+            {text.Admin === null ? (
+              <ListItemButton
+                sx={{ color: "black" }}
+                as={Link}
+                to={`${text.route}`}
+              >
+                <ListItemIcon>{text.icon}</ListItemIcon>
+                <ListItemText primary={text.title} />
+              </ListItemButton>
+            ) : (
+              <ListItemButton
+                sx={{ color: "black" }}
+                as={Link}
+                to={`${text.route}`}
+              >
+                <ListItemIcon>{text.icon}</ListItemIcon>
+                <ListItemText primary={text.title} />
+              </ListItemButton>
+            )}
           </ListItem>
         ))}
       </List>
@@ -155,11 +203,17 @@ function ResponsiveDrawer(props) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <ListItemButton
+                  key={setting.name}
+                  onClick={setting.sign ? logout : ""}
+                  sx={{ color: "black" }}
+                  as={Link}
+                  to={`${setting.route}`}
+                >
                   <Typography sx={{ fontFamily: "poppins" }} textAlign="center">
-                    {setting}
+                    {setting.name}
                   </Typography>
-                </MenuItem>
+                </ListItemButton>
               ))}
             </Menu>
           </Box>

@@ -49,7 +49,7 @@ const Progress = () => {
         let user = await axios.post(`${env.api}/task/activity`, values);
         if (user.status === 200) {
           alert("User Created");
-          navigate("/portal/userList");
+          navigate("/portal/projectList");
         }
       } catch (err) {
         console.log(err);

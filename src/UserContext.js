@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
   const [signIn, setSignIn] = useState(false);
   const [employee, setEmployee] = useState([]);
   const [project, setProject] = useState([]);
+  const [tasker, setTasker] = useState([]);
   return (
     <UserContext.Provider
       value={{
@@ -22,6 +23,8 @@ export const UserProvider = ({ children }) => {
         setEmployee,
         project,
         setProject,
+        tasker,
+        setTasker,
       }}
     >
       {children}

@@ -101,7 +101,7 @@ const Login = () => {
             setAdmin(true);
           }
 
-          window.localStorage.setItem("user", loginData.data.userValues.name);
+          // window.localStorage.setItem("user", loginData.data.userValues.name);
           // setUser(values);
           navigate("/portal");
         } else {

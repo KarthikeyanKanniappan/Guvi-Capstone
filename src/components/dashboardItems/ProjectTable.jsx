@@ -21,7 +21,7 @@ const rows = [
   createData("Sample project 102", 25, "onprogress"),
 ];
 
-const data = ["#", "Project", "Progress", "Status"];
+const data = ["#", "Project", "Progress", "Status", "Action"];
 
 const ProjectTable = () => {
   let context = useContext(UserContext);
@@ -35,7 +35,6 @@ const ProjectTable = () => {
   let getProject = async () => {
     try {
       let response = await axios.get(`${env.api}/projects/projectList`);
-
       setProject(response.data);
     } catch (err) {
       console.log(err);
@@ -73,7 +72,7 @@ const ProjectTable = () => {
             >
               <TableCell align="left">{i + 1}</TableCell>
               <TableCell align="left" component="th" scope="row">
-                {row.projectName}
+                <b>{row.projectName}</b>
               </TableCell>
               <TableCell align="left">
                 <ProgressBar now="40" label={`${40}%`} />
