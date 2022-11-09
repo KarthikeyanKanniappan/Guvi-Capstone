@@ -39,7 +39,6 @@ const CreateUser = () => {
       return errors;
     },
     onSubmit: async (values) => {
-      console.log(values);
       try {
         let user = await axios.post(`${env.api}/users/register`, values, {
           headers: {

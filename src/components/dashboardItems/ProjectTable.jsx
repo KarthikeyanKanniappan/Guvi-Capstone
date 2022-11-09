@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,6 +8,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { Link } from "react-router-dom";
+import UserContext from "../../UserContext";
+import axios from "axios";
+import { env } from "../../config";
 
 function createData(name, calories, fat) {
   return { name, calories, fat };
@@ -21,6 +24,23 @@ const rows = [
 const data = ["#", "Project", "Progress", "Status"];
 
 const ProjectTable = () => {
+  let context = useContext(UserContext);
+  const [project, setProject] = useState([]);
+
+  // Getting all projects
+  useEffect(() => {
+    getProject();
+  }, []);
+
+  let getProject = async () => {
+    try {
+      let response = await axios.get(`${env.api}/projects/projectList`);
+
+      setProject(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="medium" aria-label="a dense table">
@@ -42,7 +62,7 @@ const ProjectTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, i) => (
+          {project.map((row, i) => (
             <TableRow
               key={row.name}
               sx={{
@@ -53,17 +73,17 @@ const ProjectTable = () => {
             >
               <TableCell align="left">{i + 1}</TableCell>
               <TableCell align="left" component="th" scope="row">
-                {row.name}
+                {row.projectName}
               </TableCell>
               <TableCell align="left">
-                <ProgressBar now={row.calories} label={`${row.calories}%`} />
+                <ProgressBar now="40" label={`${40}%`} />
               </TableCell>
               <TableCell align="left">
-                <span className="badge badge-info bg-info ">{row.fat}</span>
+                <span className={`badge  bg-${row.color} `}>{row.state}</span>
               </TableCell>
               <TableCell align="left">
                 <Link
-                  to="/portal/viewProject"
+                  to={`/portal/viewProject/${row._id}`}
                   className="btn btn-primary"
                   type="button"
                 >

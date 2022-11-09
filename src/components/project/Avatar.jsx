@@ -7,7 +7,7 @@ const Avatar = ({ pic, name }) => {
         src={pic}
         class="rounded-circle"
         style={{ width: "50px" }}
-        alt="Avatar"
+        alt="Img"
       />
       <b className="mx-2">{name}</b>
     </div>

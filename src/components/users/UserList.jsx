@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Paper,
   TableBody,
@@ -15,7 +15,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Avatar from "../project/Avatar";
 import axios from "axios";
 import { env } from "../../config";
-
+import UserContext from "../../UserContext.js";
 // const records = [
 //   {
 //     fullName: "Arun",
@@ -33,7 +33,10 @@ const headCells = [
   { id: "email", label: "Email Address" },
   { id: "department", label: "Action", disableSorting: true },
 ];
+
 const UserList = () => {
+  let context = useContext(UserContext);
+  const { employee, setEmployee } = context;
   const [records, setRecords] = useState([]);
   const [value, setValue] = useState({
     fn: (items) => {
@@ -61,10 +64,12 @@ const UserList = () => {
     try {
       let response = await axios.get(`${env.api}/team/employees`);
       setRecords(response.data);
+      setEmployee(response.data);
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <>
       <h3>Employees</h3>
