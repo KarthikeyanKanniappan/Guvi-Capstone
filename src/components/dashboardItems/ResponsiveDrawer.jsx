@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import react, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -26,6 +26,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../UserContext.js";
+
 const drawerWidth = 240;
 const settings = [
   { name: "Dashboard", route: "/portal", sign: false },
@@ -36,38 +38,39 @@ const SideData = [
     title: "Dashboard",
     icon: <DashboardIcon />,
     route: "",
-    Admin: false,
+    Admin: window.localStorage.getItem("Admin") ? false : true,
   },
   {
     title: "Project",
     icon: <WysiwygIcon />,
     route: "projectList",
-    Admin: window.localStorage.getItem("Admin") === null ? true : false,
+    Admin: window.localStorage.getItem("Admin") ? false : true,
   },
   {
     title: "People",
     icon: <FaceIcon />,
     route: "userList",
-    Admin: false,
   },
   {
     title: "Task",
     icon: <TaskIcon />,
     route: "task",
-    Admin: window.localStorage.getItem("Admin") === null ? true : false,
+    Admin: window.localStorage.getItem("Admin") ? false : true,
   },
-  {
-    title: "Report",
-    icon: <LeaderboardIcon />,
-    route: "report",
-    Admin: false,
-  },
+  // {
+  //   title: "Report",
+  //   icon: <LeaderboardIcon />,
+  //   route: "report",
+  // },
 ];
 function ResponsiveDrawer(props) {
+  let context = useContext(UserContext);
+  const [storage, setStorage] = useState("");
   const { window } = props;
   let navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { admin } = context;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -84,35 +87,41 @@ function ResponsiveDrawer(props) {
     navigate("/");
     localStorage.clear();
   };
-  console.log(SideData);
+
   const drawer = (
     <div>
-      <h2 className="mx-5 mt-4">Admin</h2>
+      <h2 className="mx-5 mt-4">{admin ? "Admin" : " User"}</h2>
       <Divider />
       <List>
-        {SideData.map((text, index) => (
-          <ListItem key={index} disablePadding>
-            {text.Admin === null ? (
-              <ListItemButton
-                sx={{ color: "black" }}
-                as={Link}
-                to={`${text.route}`}
-              >
-                <ListItemIcon>{text.icon}</ListItemIcon>
-                <ListItemText primary={text.title} />
-              </ListItemButton>
-            ) : (
-              <ListItemButton
-                sx={{ color: "black" }}
-                as={Link}
-                to={`${text.route}`}
-              >
-                <ListItemIcon>{text.icon}</ListItemIcon>
-                <ListItemText primary={text.title} />
-              </ListItemButton>
-            )}
-          </ListItem>
-        ))}
+        {admin
+          ? SideData.map((text, index) => (
+              <ListItem key={index} disablePadding>
+                <ListItemButton
+                  sx={{ color: "black" }}
+                  as={Link}
+                  to={`${text.route}`}
+                >
+                  <ListItemIcon>{text.icon}</ListItemIcon>
+                  <ListItemText primary={text.title} />
+                </ListItemButton>
+              </ListItem>
+            ))
+          : SideData.map((text, index) => (
+              <ListItem key={index} disablePadding>
+                {text.Admin ? (
+                  <ListItemButton
+                    sx={{ color: "black" }}
+                    as={Link}
+                    to={`${text.route}`}
+                  >
+                    <ListItemIcon>{text.icon}</ListItemIcon>
+                    <ListItemText primary={text.title} />
+                  </ListItemButton>
+                ) : (
+                  ""
+                )}
+              </ListItem>
+            ))}
       </List>
     </div>
   );
@@ -132,7 +141,7 @@ function ResponsiveDrawer(props) {
         }}
         elevation={0}
       >
-        <Toolbar>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -146,7 +155,6 @@ function ResponsiveDrawer(props) {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -163,7 +171,6 @@ function ResponsiveDrawer(props) {
             variant="h5"
             noWrap
             component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -177,11 +184,12 @@ function ResponsiveDrawer(props) {
             Kanban
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Diversity2Icon
                   sx={{
                     color: "Black",
+                    fontSize: "40px",
                   }}
                 />
               </IconButton>
@@ -219,6 +227,8 @@ function ResponsiveDrawer(props) {
           </Box>
         </Toolbar>
       </AppBar>
+
+      {/* SideBar */}
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}

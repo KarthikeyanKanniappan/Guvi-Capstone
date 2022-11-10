@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import DashboardCard from "./DashboardCard";
-import { UserData } from "../charts/Data";
 import ProjectTable from "./ProjectTable";
 import UserContext from "../../UserContext.js";
 import axios from "axios";
@@ -12,15 +11,6 @@ const Main = () => {
   const { employee, setEmployee, project, setProject, tasker, setTasker } =
     context;
 
-  // const [userData, setUserData] = useState({
-  //   labels: UserData.map((data) => data.year),
-  //   datasets: [
-  //     {
-  //       label: "Users Gained",
-  //       data: UserData.map((data) => data.userGain),
-  //     },
-  //   ],
-  // });
   let findCapacity = (employee) => {
     let emp = +employee.length;
     let month = 22;
@@ -93,14 +83,7 @@ const Main = () => {
           return <DashboardCard key={i} card={card} />;
         })}
       </div>
-      {/* <div className="row m-auto">
-        <div style={{ width: "900px" }}>
-          {<LineChart chartData={userData} />}
-        </div>
-        <div className="m-auto" style={{ width: "500px" }}>
-          {<DoughnutChart />}
-        </div>
-      </div> */}
+
       <div className="mt-4">
         <h4 className=" mb-4 text-gray-800">Project Progress</h4>
         <ProjectTable />

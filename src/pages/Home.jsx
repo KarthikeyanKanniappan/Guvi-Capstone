@@ -1,6 +1,7 @@
 import React from "react";
 import TopBar from "../components/landingPage/TopBar";
 import Art from "../Asset/clipart.png";
+import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="big-wrapper">
@@ -14,10 +15,19 @@ const Home = () => {
             <p className="text">
               Collaborate, manage projects, and reach new productivity peaks
             </p>
+            <p className="text">
+              <p>
+                <b>Credentials</b>
+              </p>
+              <b>UserName:</b>perosn1@gmail.com
+              <br />
+              <b>password:</b>123456789 <br />
+              <b>AdminKey:</b>111
+            </p>
             <div className="cta">
-              <a href="#" className="btn btn-primary">
+              <Link to="login" className="btn btn-primary">
                 Sign up-it's free
-              </a>
+              </Link>
             </div>
           </div>
           <div className="right">

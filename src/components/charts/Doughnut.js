@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
+// import { Chart as ChartJS } from "chart.js/auto";
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 const data = {
   labels: ["Red", "Blue", "Yellow"],
   datasets: [
@@ -17,7 +19,11 @@ const data = {
   ],
 };
 const DoughnutChart = () => {
-  return <Doughnut data={data} />;
+  return (
+    <div style={{ width: "500px" }}>
+      <Doughnut data={data} />;
+    </div>
+  );
 };
 
 export default DoughnutChart;

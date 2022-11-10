@@ -4,6 +4,7 @@ import "../../App.css";
 import { Link } from "react-router-dom";
 import UserContext from "../../UserContext";
 import { useNavigate } from "react-router-dom";
+
 const TopBar = () => {
   let navigate = useNavigate();
   let context = useContext(UserContext);
@@ -29,12 +30,6 @@ const TopBar = () => {
           </div>
           <div className="links">
             <ul>
-              <li>
-                <a href="#">Product</a>
-              </li>
-              <li>
-                <a href="#">About</a>
-              </li>
               <li>
                 <Link onClick={SignInHandleClick} className="btn btn-primary">
                   Login

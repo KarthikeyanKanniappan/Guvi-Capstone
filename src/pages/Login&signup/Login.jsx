@@ -47,7 +47,8 @@ const Login = () => {
         errors.email = "Please enter email";
       }
       if (values.password.length < 9) {
-        errors.password = "Password length should be greater than 9";
+        errors.password =
+          "The password should be Greater than 9 alphanumeric letter";
       }
       return errors;
     },
@@ -83,7 +84,7 @@ const Login = () => {
         errors.email = "Please enter email";
       }
       if (values.password.length < 9) {
-        errors.password = "Password length should be greater than 9";
+        errors.password = "The password that you've entered is incorrect";
       }
       return errors;
     },
