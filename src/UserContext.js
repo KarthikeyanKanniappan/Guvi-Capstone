@@ -10,6 +10,12 @@ export const UserProvider = ({ children }) => {
   const [employee, setEmployee] = useState([]);
   const [project, setProject] = useState([]);
   const [tasker, setTasker] = useState([]);
+
+  useEffect(() => {
+    if (localStorage.getItem("Admin")) {
+      setAdmin(true);
+    }
+  }, []);
   return (
     <UserContext.Provider
       value={{
