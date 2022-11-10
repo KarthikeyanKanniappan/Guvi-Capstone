@@ -102,9 +102,8 @@ header .contain {
   align-items: center;
   justify-content: center;
 }
-*/
 
- /* .bar::before{transform: translateY(-8px);}
+/* .bar::before{transform: translateY(-8px);}
 .bar::after{transform: translateY(8px);}  */
 
 /* .big-wrapper.active .hamburger-menu .bar{
@@ -117,7 +116,7 @@ transform: translateY(0) rotate(-45deg)
 
 .big-wrapper.active .bar::after{
     transform: translateY(0) rotate(45deg)
-    } */ */
+    } */
 
 .big-title {
   font-size: 1.4rem;
