@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
 import Multiselect from "multiselect-react-dropdown";
-import TextEditor from "../quill/TextEditor";
 import axios from "axios";
 import { env } from "../../config";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../../UserContext";
-const CreateProject = () => {
+
+const EditProject = () => {
+  const params = useParams();
   let context = useContext(UserContext);
   const { project, setProject } = useContext(UserContext);
   let navigate = useNavigate();
   const [employee, setEmployee] = useState([]);
   const [manager, setManager] = useState([]);
   const [member, setMember] = useState([]);
+
   useEffect(() => {
     getUser();
+    editProject(params.id);
   }, []);
 
   let getUser = async () => {
@@ -33,6 +36,23 @@ const CreateProject = () => {
       });
       setEmployee(Employee);
       setManager(project);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  let editProject = async (id) => {
+    try {
+      let response = await axios.get(`${env.api}/projects/pro/${id}`);
+      formik.setValues({
+        projectName: response.data.projectName,
+        state: response.data.state,
+        startDate: response.data.startDate,
+        endDate: response.data.endDate,
+        projectManager: response.data.projectManager,
+        projectTeam: response.data.projectTeam,
+        description: response.data.description,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -61,9 +81,12 @@ const CreateProject = () => {
     onSubmit: async (values) => {
       values.projectTeam = member;
       try {
-        let user = await axios.post(`${env.api}/projects/project`, values);
+        let user = await axios.put(
+          `${env.api}/projects/pros/${params.id}`,
+          values
+        );
         if (user.status === 200) {
-          alert("User Created");
+          alert("Project Updated");
           navigate("/portal/projectList");
         }
       } catch (err) {
@@ -74,7 +97,7 @@ const CreateProject = () => {
   });
   return (
     <>
-      <h3> New Project</h3>
+      <h3> Edit Project</h3>
       <div className="card p-4">
         <form onSubmit={formik.handleSubmit}>
           <div className="row">
@@ -208,4 +231,4 @@ const CreateProject = () => {
   );
 };
 
-export default CreateProject;
+export default EditProject;

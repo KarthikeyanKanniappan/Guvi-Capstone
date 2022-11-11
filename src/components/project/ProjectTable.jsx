@@ -15,32 +15,7 @@ import { Link, useParams } from "react-router-dom";
 import UserContext from "../../UserContext";
 import axios from "axios";
 import { env } from "../../config";
-// const records = [
-//   {
-//     Name: "sample Project",
-//     sub: "Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. ",
-//     start: "Nov 03,2022",
-//     Due: "Jan20,2021",
-//     status: "on-progress",
-//     color: "primary",
-//   },
-//   {
-//     Name: "sample Project1",
-//     sub: "Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. ",
-//     start: "Nov 15,2022",
-//     Due: "Jan20,2023",
-//     status: "done",
-//     color: "success",
-//   },
-//   {
-//     Name: "Amber",
-//     sub: " a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. ",
-//     start: "Nov 15,2022",
-//     Due: "Jan20,2023",
-//     status: "Hold",
-//     color: "danger",
-//   },
-// ];
+
 const headCells = [
   { id: "#", label: "#" },
   { id: "Project", label: "Project" },
@@ -49,8 +24,10 @@ const headCells = [
   { id: "status", label: "Status" },
   { id: "action", label: "Action" },
 ];
+
 const ProjectTable = () => {
   const [records, setRecords] = useState([]);
+  const [alarm, setAlarm] = useState(false);
   let context = useContext(UserContext);
   const { project, setProject } = context;
   const params = useParams();
@@ -76,7 +53,7 @@ const ProjectTable = () => {
   // Getting all projects
   useEffect(() => {
     getProject();
-  }, []);
+  }, [alarm]);
 
   let getProject = async () => {
     try {
@@ -87,6 +64,16 @@ const ProjectTable = () => {
     }
   };
 
+  let userDelete = async (id) => {
+    try {
+      let response = await axios.delete(`${env.api}/projects/del/${id}`);
+      if (response.status === 200) {
+        setAlarm(true);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <>
       <h3>Projects</h3>
@@ -144,7 +131,16 @@ const ProjectTable = () => {
                         >
                           View
                         </Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Edit</Dropdown.Item>
+                        <Dropdown.Item href={`/portal/editProject/${list._id}`}>
+                          Edit
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => {
+                            userDelete(list._id);
+                          }}
+                        >
+                          Delete
+                        </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </TableCell>
