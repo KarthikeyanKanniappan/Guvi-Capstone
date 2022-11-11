@@ -13,6 +13,7 @@ import Login from "./pages/Login&signup/Login";
 import EditUser from "./components/users/EditUser";
 import EditProject from "./components/project/EditProject";
 import { UserProvider } from "./UserContext";
+import EditTask from "./components/Task/EditTask";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="report" element={<Report />} />
             <Route path="editProject/:id" element={<EditProject />} />
             <Route path="editUser/:id" element={<EditUser />} />
+            <Route path="editTask/:id" element={<EditTask />} />
           </Route>
           <Route path="login" element={<Login />} />
         </Routes>

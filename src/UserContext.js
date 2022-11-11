@@ -10,7 +10,8 @@ export const UserProvider = ({ children }) => {
   const [employee, setEmployee] = useState([]);
   const [project, setProject] = useState([]);
   const [tasker, setTasker] = useState([]);
-
+  const [passTaskTable, setPassTaskTable] = useState([]);
+  const [particular, setParticular] = useState([]);
   useEffect(() => {
     if (localStorage.getItem("Admin")) {
       setAdmin(true);
@@ -31,6 +32,10 @@ export const UserProvider = ({ children }) => {
         setProject,
         tasker,
         setTasker,
+        passTaskTable,
+        setPassTaskTable,
+        particular,
+        setParticular,
       }}
     >
       {children}

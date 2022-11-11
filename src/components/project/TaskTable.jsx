@@ -24,6 +24,7 @@ const headCells = [
 
 const TaskTable = ({ id }) => {
   const [records, setRecords] = useState([]);
+  const [alarm, setAlarm] = useState(false);
   let context = useContext(UserContext);
   const { project, setProject } = useContext(UserContext);
   const [value, setValue] = useState({
@@ -45,7 +46,7 @@ const TaskTable = ({ id }) => {
   };
   useEffect(() => {
     getProject();
-  }, []);
+  }, [alarm]);
 
   let getProject = async () => {
     try {
@@ -54,6 +55,17 @@ const TaskTable = ({ id }) => {
       setProject(response.data);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  let userDelete = async (id) => {
+    try {
+      let response = await axios.delete(`${env.api}/task/del/${id}`);
+      if (response.status === 200) {
+        setAlarm(true);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
   return (
@@ -79,11 +91,19 @@ const TaskTable = ({ id }) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item as={Link} to="/portal/task">
-                        View
+                      <Dropdown.Item
+                        as={Link}
+                        to={`/portal/editTask/${list._id}`}
+                      >
+                        Edit
                       </Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Edit</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => {
+                          userDelete(list._id);
+                        }}
+                      >
+                        Delete
+                      </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </TableCell>

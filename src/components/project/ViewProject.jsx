@@ -19,11 +19,18 @@ const ViewProject = () => {
 
   const [show, setShow] = useState(false);
   const [member, setMember] = useState([]);
-  const [particular, setParticular] = useState([]);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   let context = useContext(UserContext);
-  const { employee, setEmployee } = context;
+  const {
+    employee,
+    setEmployee,
+    passTaskTable,
+    setPassTaskTable,
+    particular,
+    setParticular,
+  } = context;
   const [teams, setTeams] = useState([]);
 
   // Getting the Particular project
@@ -35,7 +42,9 @@ const ViewProject = () => {
     try {
       let response = await axios.get(`${env.api}/projects/pro/${id}`);
       setParticular(response.data);
-      setMember(response.data.projectTeam);
+      let totalMember = response.data.projectTeam;
+      setMember(["Select", ...totalMember]);
+      setPassTaskTable(["Select", ...totalMember]);
       setTeams(AvatarCreator(employee, response.data.projectTeam));
     } catch (err) {
       console.log(err);
@@ -144,7 +153,9 @@ const ViewProject = () => {
                       {formik.errors.taskName}
                     </span>
                     <div className="form-group mt-3">
-                      <label htmlFor="exampleFormControlSelect1">Status</label>
+                      <label htmlFor="exampleFormControlSelect1">
+                        Team Members
+                      </label>
                       <select
                         className="form-control"
                         id="exampleFormControlSelect1"
@@ -155,7 +166,6 @@ const ViewProject = () => {
                         {member.map((el, i) => {
                           return (
                             <>
-                              <option>select</option>
                               <option key={i}>{el}</option>
                             </>
                           );
