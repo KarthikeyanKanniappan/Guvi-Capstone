@@ -1,4 +1,4 @@
 export const env = {
-  api: "https://plannercapacity.herokuapp.com",
+  api: "http://localhost:3001",
 };
 // https://plannercapacity.herokuapp.com/

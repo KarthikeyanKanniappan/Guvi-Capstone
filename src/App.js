@@ -10,9 +10,10 @@ import ProjectTable from "./components/project/ProjectTable";
 import TaskTable from "./components/Task/TaskTable";
 import Report from "./components/Report/Report";
 import Login from "./pages/Login&signup/Login";
-import { UserProvider } from "./UserContext";
-import Activity from "./components/Activity/Activity";
+import EditUser from "./components/users/EditUser";
 import EditProject from "./components/project/EditProject";
+import { UserProvider } from "./UserContext";
+
 function App() {
   return (
     <UserProvider>
@@ -29,6 +30,7 @@ function App() {
             <Route path="task" element={<TaskTable />} />
             <Route path="report" element={<Report />} />
             <Route path="editProject/:id" element={<EditProject />} />
+            <Route path="editUser/:id" element={<EditUser />} />
           </Route>
           <Route path="login" element={<Login />} />
         </Routes>

@@ -16,15 +16,6 @@ import Avatar from "../project/Avatar";
 import axios from "axios";
 import { env } from "../../config";
 import UserContext from "../../UserContext.js";
-// const records = [
-//   {
-//     fullName: "Arun",
-//     profile:
-//       "https://avatoon.me/wp-content/uploads/2021/09/Cartoon-Pic-Ideas-for-DP-Profile-06-768x766.png",
-//     email: "arun@gmail.com",
-//     position: "Employee",
-//   },
-// ];
 
 const headCells = [
   { id: "#", label: "#" },
@@ -37,6 +28,7 @@ const headCells = [
 const UserList = () => {
   let context = useContext(UserContext);
   const { employee, setEmployee } = context;
+  const [alarm, setAlarm] = useState(false);
   const [records, setRecords] = useState([]);
   const [value, setValue] = useState({
     fn: (items) => {
@@ -58,7 +50,7 @@ const UserList = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [alarm]);
 
   let getUser = async () => {
     try {
@@ -67,6 +59,17 @@ const UserList = () => {
       setEmployee(response.data);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  let userDelete = async (id) => {
+    try {
+      let response = await axios.delete(`${env.api}/team/del/${id}`);
+      if (response.status === 200) {
+        setAlarm(true);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -113,10 +116,19 @@ const UserList = () => {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item as={Link} to="/portal/viewProject">
-                          View
+                        <Dropdown.Item
+                          as={Link}
+                          to={`/portal/editUser/${list._id}`}
+                        >
+                          Edit
                         </Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Edit</Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => {
+                            userDelete(list._id);
+                          }}
+                        >
+                          Delete
+                        </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </TableCell>

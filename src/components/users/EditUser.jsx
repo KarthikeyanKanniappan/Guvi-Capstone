@@ -1,11 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { useFormik } from "formik";
 import { env } from "../../config";
 import axios from "axios";
 import UserContext from "../../UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 const CreateUser = () => {
+  const params = useParams();
   let navigate = useNavigate();
   const inputRef = useRef(null);
   const [add, setAdd] = useState(
@@ -14,6 +16,27 @@ const CreateUser = () => {
   const SetImage = (event) => {
     event.preventDefault();
     setAdd(inputRef.current.value);
+  };
+
+  useEffect(() => {
+    editUser(params.id);
+  }, []);
+
+  let editUser = async (id) => {
+    try {
+      let response = await axios.get(`${env.api}/team/teamMember/${id}`);
+      formik.setValues({
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        position: response.data.position,
+        email: response.data.email,
+        password: "Set new password",
+        AdminKey: response.data.AdminKey,
+        profile: response.data.profile,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
   let formik = useFormik({
     initialValues: {
@@ -40,14 +63,18 @@ const CreateUser = () => {
     },
     onSubmit: async (values) => {
       try {
-        let user = await axios.post(`${env.api}/users/register`, values, {
-          headers: {
-            Authorization: window.localStorage.getItem("app-token"),
-          },
-        });
+        let user = await axios.put(
+          `${env.api}/team/member/${params.id}`,
+          values,
+          {
+            headers: {
+              Authorization: window.localStorage.getItem("app-token"),
+            },
+          }
+        );
         if (user.status === 200) {
           // setUserName(values);
-          alert("User Created");
+          alert("User Updated");
           navigate("/portal/userList");
         }
       } catch (err) {
@@ -58,7 +85,7 @@ const CreateUser = () => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <h3>New User</h3>
+      <h3>Edit User</h3>
       <div className="form-row">
         <div className="row mb-3">
           <div className="form-group col-md-5 mb-3">
@@ -104,7 +131,6 @@ const CreateUser = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
               name="password"
-              type="password"
               className="form-control"
               id="inputPassword1"
             />
@@ -132,7 +158,6 @@ const CreateUser = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
               name="password"
-              type="password"
               className="form-control"
               id="inputPassword11"
             />
