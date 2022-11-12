@@ -11,11 +11,11 @@ import { env } from "../../config";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import UserContext from "../../UserContext";
 
-const Progress = () => {
+const Progress = ({}) => {
   const params = useParams();
   let navigate = useNavigate();
   let context = useContext(UserContext);
-  const { project, setProject, employee, setEmployee } =
+  const { project, setProject, employee, setEmployee, projectId } =
     useContext(UserContext);
   const [active, setActive] = useState([]);
   const [teamMember, setTeamMember] = useState([]);
@@ -48,8 +48,8 @@ const Progress = () => {
       try {
         let user = await axios.post(`${env.api}/task/activity`, values);
         if (user.status === 200) {
-          alert("User Created");
-          navigate("/portal/projectList");
+          alert("Activity Created");
+          navigate(`/portal/projectList`);
         }
       } catch (err) {
         console.log(err);
@@ -127,10 +127,10 @@ const Progress = () => {
                       onChange={formik.handleChange}
                       name="task"
                     >
+                      <option value="select">select</option>
                       {project.map((el, i) => {
                         return (
                           <>
-                            <option value="select">select</option>
                             <option key={i} value={el.taskName}>
                               {el.taskName}
                             </option>
@@ -188,7 +188,6 @@ const Progress = () => {
                       cols="40"
                     ></textarea>
                   </div>
-                  {/* <TextEditor height={30} /> */}
                 </div>
               </div>
             </Modal.Body>

@@ -16,11 +16,13 @@ import { useFormik } from "formik";
 const ViewProject = () => {
   let navigate = useNavigate();
   const params = useParams();
-
+  const [never, setNever] = useState(false);
   const [show, setShow] = useState(false);
   const [member, setMember] = useState([]);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
   let context = useContext(UserContext);
   const {
@@ -30,13 +32,16 @@ const ViewProject = () => {
     setPassTaskTable,
     particular,
     setParticular,
+    projectId,
+    setProjectId,
   } = context;
   const [teams, setTeams] = useState([]);
 
   // Getting the Particular project
   useEffect(() => {
     getPro(params.id);
-  }, []);
+    setProjectId(params.id);
+  }, [alert]);
 
   let getPro = async (id) => {
     try {
@@ -87,9 +92,9 @@ const ViewProject = () => {
       try {
         let user = await axios.post(`${env.api}/task/tasking`, values);
         if (user.status === 200) {
-          // setUserName(values);
           alert("task Created");
-          navigate(`/portal/task`);
+          // setNever(true);
+          navigate(`/portal/projectList`);
         }
       } catch (err) {
         console.log(err);

@@ -15,42 +15,6 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { env } from "../../config";
 
-// const records = [
-//   {
-//     Name: "sample Project",
-//     task: "Sample Task1",
-//     sub: "Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. ",
-//     start: "Nov 03,2022",
-//     Due: "Jan20,2021",
-//     status: "on-progress",
-//     color: "primary",
-//     taskStatus: "Done",
-//     taskColor: "success",
-//   },
-//   {
-//     Name: "sample Project1",
-//     task: "Sample Task2",
-//     sub: "Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. ",
-//     start: "Nov 15,2022",
-//     Due: "Jan20,2023",
-//     status: "done",
-//     color: "success",
-//     taskStatus: "pending",
-//     taskColor: "secondary",
-//   },
-//   {
-//     Name: "Amber",
-//     task: "Sample Task3",
-//     sub: " a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. ",
-//     start: "Nov 15,2022",
-//     Due: "Jan20,2023",
-//     status: "Hold",
-//     color: "danger",
-//     taskStatus: "pending",
-//     taskColor: "secondary",
-//   },
-// ];
-
 const headCells = [
   { id: "#", label: "#" },
   { id: "Project", label: "Project" },
@@ -143,7 +107,9 @@ const TaskTable = () => {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">
+                        <Dropdown.Item
+                          href={`/portal/viewProject/${list.projectId}`}
+                        >
                           Add Productivity
                         </Dropdown.Item>
                       </Dropdown.Menu>

@@ -14,7 +14,8 @@ import EditUser from "./components/users/EditUser";
 import EditProject from "./components/project/EditProject";
 import { UserProvider } from "./UserContext";
 import EditTask from "./components/Task/EditTask";
-
+import EditActivity from "./components/Activity/EditActivity";
+import GanttChart from "./components/GoogleChart/GanttChart";
 function App() {
   return (
     <UserProvider>
@@ -33,7 +34,9 @@ function App() {
             <Route path="editProject/:id" element={<EditProject />} />
             <Route path="editUser/:id" element={<EditUser />} />
             <Route path="editTask/:id" element={<EditTask />} />
+            <Route path="editActivity/:id" element={<EditActivity />} />
           </Route>
+          {/* <Route path="/chart" element={<GanttChart />} /> */}
           <Route path="login" element={<Login />} />
         </Routes>
       </BrowserRouter>
