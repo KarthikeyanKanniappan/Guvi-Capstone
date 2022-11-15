@@ -53,17 +53,17 @@ const Main = () => {
 
   let data = [
     {
-      title: "Capacity hrs.",
-      hours: value,
+      title: "Employees",
+      hours: employee.length,
     },
-    {
-      title: "Effective hrs.",
-      hours: 384,
-    },
-    {
-      title: "In-Effective hrs.",
-      hours: 296,
-    },
+    // {
+    //   title: "Effective hrs.",
+    //   hours: 384,
+    // },
+    // {
+    //   title: "In-Effective hrs.",
+    //   hours: 296,
+    // },
     {
       title: "Total projects",
       hours: project.length,
