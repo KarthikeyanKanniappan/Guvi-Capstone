@@ -18,7 +18,8 @@ const headCells = [
   { id: "serial", label: "#" },
   { id: "people", label: "Team" },
   { id: "script", label: "Description" },
-  { id: "status", label: "status" },
+  { id: "hrs", label: "Hours" },
+  { id: "status", label: "Status" },
   { id: "Action", label: "Action", disableSorting: true },
 ];
 
@@ -79,6 +80,7 @@ const TaskTable = ({ id }) => {
                 <TableCell>{i + 1}</TableCell>
                 <TableCell>{list.employee}</TableCell>
                 <TableCell>{list.description}</TableCell>
+                <TableCell>{list.hrs}</TableCell>
                 <TableCell>
                   <span className={`badge bg-${list.color}`}>
                     {list.status}

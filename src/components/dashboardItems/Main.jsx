@@ -11,19 +11,10 @@ const Main = () => {
   const { employee, setEmployee, project, setProject, tasker, setTasker } =
     context;
 
-  let findCapacity = (employee) => {
-    let emp = +employee.length;
-    let month = 22;
-    let day = 8;
-    let final = emp * month * day;
-    return final;
-  };
-
   useEffect(() => {
     getUser();
     getTask();
     getProject();
-    setValue(findCapacity(employee));
   }, []);
 
   let getTask = async () => {

@@ -57,11 +57,11 @@ const SideData = [
     route: "task",
     Admin: window.localStorage.getItem("Admin") ? false : true,
   },
-  // {
-  //   title: "Report",
-  //   icon: <LeaderboardIcon />,
-  //   route: "report",
-  // },
+  {
+    title: "Report",
+    icon: <LeaderboardIcon />,
+    route: "report",
+  },
 ];
 function ResponsiveDrawer(props) {
   let context = useContext(UserContext);

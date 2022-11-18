@@ -15,8 +15,15 @@ const Progress = ({}) => {
   const params = useParams();
   let navigate = useNavigate();
   let context = useContext(UserContext);
-  const { project, setProject, employee, setEmployee, projectId } =
-    useContext(UserContext);
+  const {
+    project,
+    setProject,
+    employee,
+    setEmployee,
+    projectId,
+    stack,
+    setStack,
+  } = useContext(UserContext);
   const [active, setActive] = useState([]);
   const [teamMember, setTeamMember] = useState([]);
   const [show, setShow] = useState(false);
@@ -33,16 +40,6 @@ const Progress = ({}) => {
       endTime: "",
       description: "",
     },
-    // validate: (values) => {
-    //   let errors = {};
-    //   if (values.projectName === "") {
-    //     errors.projectName = "Please enter a user name ";
-    //   }
-    //   if (values.state === "") {
-    //     errors.state = "Please enter state";
-    //   }
-    //   return errors;
-    // },
     onSubmit: async (values) => {
       values.projectId = project[0].projectId;
       try {
@@ -64,6 +61,7 @@ const Progress = ({}) => {
   let getActivity = async (id) => {
     try {
       let response = await axios.get(`${env.api}/task/activities/${id}`);
+      setStack(response.data);
       setActive(response.data);
     } catch (err) {
       console.log(err);
@@ -151,7 +149,7 @@ const Progress = ({}) => {
                       className="form-control"
                     />
                   </div>
-                  <div className="col">
+                  <div className="col mt-3">
                     <label htmlFor="exampleFormControlSelect1">
                       <b>Start Time</b>
                     </label>
@@ -163,7 +161,7 @@ const Progress = ({}) => {
                       className="form-control"
                     />
                   </div>
-                  <div className="col">
+                  <div className="col mt-3">
                     <label htmlFor="exampleFormControlSelect1">
                       <b>End Time</b>
                     </label>
@@ -173,6 +171,18 @@ const Progress = ({}) => {
                       name="endTime"
                       type="time"
                       className="form-control"
+                    />
+                  </div>
+                  <div className="col mt-3">
+                    <label htmlFor="exampleFormControlSelect1">
+                      <b>Hours/day</b>
+                    </label>
+                    <input
+                      value={formik.values.hrs}
+                      onChange={formik.handleChange}
+                      name="hrs"
+                      className="form-control form-control-sm "
+                      type="text"
                     />
                   </div>
                 </div>

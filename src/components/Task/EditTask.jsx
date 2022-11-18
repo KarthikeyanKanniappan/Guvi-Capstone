@@ -22,6 +22,7 @@ const EditTask = () => {
       formik.setValues({
         taskName: response.data.taskName,
         employee: response.data.employee,
+        hrs: response.data.hrs,
         description: response.data.description,
         status: response.data.status,
         projectId: "",
@@ -36,6 +37,7 @@ const EditTask = () => {
     initialValues: {
       taskName: "",
       employee: "",
+      hrs: "",
       description: "",
       status: "",
       projectId: "",
@@ -87,6 +89,14 @@ const EditTask = () => {
             placeholder="Task"
           />
           <span style={{ color: "red" }}>{formik.errors.taskName}</span>
+          <input
+            value={formik.values.hrs}
+            onChange={formik.handleChange}
+            name="hrs"
+            className="form-control form-control-sm mt-3"
+            type="text"
+            placeholder="Hours/day"
+          />
           <div className="form-group mt-3">
             <label htmlFor="exampleFormControlSelect1">Team Members</label>
             <select
@@ -134,7 +144,13 @@ const EditTask = () => {
           </div>
         </Modal.Body>
         <Modal.Footer className="mt-4">
-          <Button className="mx-3" variant="secondary">
+          <Button
+            className="mx-3"
+            variant="secondary"
+            onClick={() => {
+              navigate(`/portal/viewProject/${particular._id}`);
+            }}
+          >
             Close
           </Button>
           <Button type="submit" variant="primary">

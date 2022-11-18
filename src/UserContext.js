@@ -14,6 +14,7 @@ export const UserProvider = ({ children }) => {
   const [particular, setParticular] = useState([]);
   const [projectId, setProjectId] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const [stack, setStack] = useState([]);
   useEffect(() => {
     if (localStorage.getItem("Admin")) {
       setAdmin(true);
@@ -42,6 +43,8 @@ export const UserProvider = ({ children }) => {
         setProjectId,
         refresh,
         setRefresh,
+        stack,
+        setStack,
       }}
     >
       {children}

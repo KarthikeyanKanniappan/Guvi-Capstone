@@ -69,6 +69,7 @@ const ViewProject = () => {
   let formik = useFormik({
     initialValues: {
       taskName: "",
+      hrs: "",
       employee: "",
       description: "",
       status: "",
@@ -150,13 +151,30 @@ const ViewProject = () => {
                       value={formik.values.taskName}
                       onChange={formik.handleChange}
                       name="taskName"
-                      className="form-control form-control-sm"
+                      className="form-control form-control-sm "
                       type="text"
                       placeholder="Task"
                     />
                     <span style={{ color: "red" }}>
                       {formik.errors.taskName}
                     </span>
+
+                    <input
+                      value={formik.values.date}
+                      onChange={formik.handleChange}
+                      name="date"
+                      type="date"
+                      className="form-control form-control-sm mt-3"
+                    />
+
+                    <input
+                      value={formik.values.hrs}
+                      onChange={formik.handleChange}
+                      name="hrs"
+                      className="form-control form-control-sm mt-3"
+                      type="text"
+                      placeholder="Hours/day"
+                    />
                     <div className="form-group mt-3">
                       <label htmlFor="exampleFormControlSelect1">
                         Team Members
@@ -177,7 +195,7 @@ const ViewProject = () => {
                         })}
                       </select>
                     </div>
-                    <p className="mt-3">Description</p>
+                    <div className="mt-3">Description</div>
                     <div>
                       <textarea
                         style={{ width: "100%" }}

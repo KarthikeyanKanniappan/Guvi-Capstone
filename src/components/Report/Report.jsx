@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Line from "../charts/Line";
 import { UserData } from "../charts/Data";
 import DoughnutChart from "../charts/Doughnut";
+import DashboardCard from "../dashboardItems/DashboardCard";
 import {
   Paper,
   TableBody,
@@ -22,26 +23,22 @@ import UserContext from "../../UserContext.js";
 
 const headCells = [
   { id: "#", label: "#" },
-  { id: "profile", label: "Project" },
-  { id: "mobile", label: "Task" },
-  { id: "email", label: "Completed Task" },
-  { id: "email", label: "Effective hrs." },
-  { id: "department", label: "status", disableSorting: true },
+  { id: "1", label: "People" },
+  { id: "2", label: "Capacity" },
+  { id: "3", label: "Scheduled" },
+  { id: "4", label: "Billable" },
+  { id: "5", label: "Non-Billable" },
+  { id: "6", label: "Overtime" },
+  ,
 ];
 
-// const records = [
-//   {
-//     fullName: "Arun",
-//     profile:
-//       "https://avatoon.me/wp-content/uploads/2021/09/Cartoon-Pic-Ideas-for-DP-Profile-06-768x766.png",
-//     email: "arun@gmail.com",
-//     position: "Employee",
-//   },
-// ];
 const Report = () => {
   let context = useContext(UserContext);
-  // const { employee, setEmployee } = context;
+  const [capacity, setCapacity] = useState(1232);
+  const [scheduledPer, setScheduledPer] = useState("");
+  const [unscheduled, setUnscheduled] = useState("");
   const [records, setRecords] = useState([]);
+
   const [value, setValue] = useState({
     fn: (items) => {
       return items;
@@ -64,45 +61,55 @@ const Report = () => {
     getUser();
   }, []);
 
+  let scheduled = (arr) => {
+    return arr.reduce((acc, item) => acc + item, 0);
+  };
+
   let getUser = async () => {
     try {
-      let response = await axios.get(`${env.api}/task/final`);
-      let response1 = await axios.get(`${env.api}/projects/projectList`);
-      setRecords(response.data);
-      console.log(response1);
-      // (response.data);
-      // setEmployee(response.data);
+      let response = await axios.get(`${env.api}/calc/calculation`);
+      let respond = response.data;
+      let SchedulePerPerson = respond.map((el) => {
+        return el.scheduleTaskTime;
+      });
+      let calculationScheduled = scheduled(SchedulePerPerson);
+      setScheduledPer(calculationScheduled);
+      setUnscheduled(capacity - calculationScheduled);
+      setRecords(respond);
     } catch (err) {
       console.log(err);
     }
   };
-  const [userData, setUserData] = useState({
-    labels: UserData.map((data) => data.year),
-    datasets: [
-      {
-        label: "Users Gained",
-        data: UserData.map((data) => data.userGain),
-      },
-    ],
-  });
+
+  let data = [
+    {
+      title: "Capacity",
+      hours: capacity,
+      month: true,
+    },
+    {
+      title: "Scheduled",
+      hours: scheduledPer,
+      month: true,
+    },
+    {
+      title: "Unscheduled",
+      hours: unscheduled,
+      month: true,
+    },
+  ];
+
   return (
     <div>
       <div className="row m-auto">
         <>
           <h3>Report</h3>
+          <div className="row">
+            {data.map((card, i) => {
+              return <DashboardCard key={card.id} card={card} />;
+            })}
+          </div>
           <Paper className="overflow-auto">
-            <Toolbar className="d-flex justify-content-between ">
-              <TextField
-                className=""
-                sx={{ bgcolor: "#f1f8fc", width: "25%" }}
-                id="filled-multiline-flexible"
-                label="Search"
-                multiline
-                maxRows={4}
-                onChange={handleChange}
-                variant="filled"
-              />
-            </Toolbar>
             <TblContainer>
               <TblHead />
               <TableBody>
@@ -110,29 +117,12 @@ const Report = () => {
                   return (
                     <TableRow key={i + 1}>
                       <TableCell>{i + 1}</TableCell>
-                      <TableCell>{list.project.projectName}</TableCell>
-
-                      <TableCell>{list.position}</TableCell>
-                      <TableCell>{list.email}</TableCell>
-                      <TableCell>
-                        <Dropdown>
-                          <Dropdown.Toggle
-                            variant="primary"
-                            id="dropdown-basic"
-                          >
-                            Action
-                          </Dropdown.Toggle>
-
-                          <Dropdown.Menu>
-                            <Dropdown.Item as={Link} to="/portal/viewProject">
-                              View
-                            </Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">
-                              Edit
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </TableCell>
+                      <TableCell>{list.employeeName}</TableCell>
+                      <TableCell>176</TableCell>
+                      <TableCell>{list.scheduleTaskTime}</TableCell>
+                      <TableCell>{list.activeTaskTime}</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
                     </TableRow>
                   );
                 })}
@@ -142,8 +132,8 @@ const Report = () => {
           </Paper>
         </>
         {/* <div style={{ width: "100%" }}><Line /> */}
-        <div className="m-auto" style={{ width: "500px" }}>
-          {<DoughnutChart />}
+        <div className=" m-auto" style={{ width: "500px" }}>
+          {<DoughnutChart records={records} />}
         </div>
       </div>
     </div>

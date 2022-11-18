@@ -28,6 +28,16 @@ const DashboardCard = ({ card }) => {
             gutterBottom
           >
             {card.hours}
+            {card.month ? (
+              <small
+                className="mx-2"
+                style={{ fontWeight: "500", fontSize: "15px" }}
+              >
+                Months/hrs
+              </small>
+            ) : (
+              ""
+            )}
           </Typography>
         </CardContent>
       </Card>
