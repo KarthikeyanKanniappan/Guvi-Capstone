@@ -1,5 +1,5 @@
 export const env = {
-  api: "https://plannercapacity.herokuapp.com",
+  api: "https://guvi-capstone-back-end.vercel.app",
 };
-// https://plannercapacity.herokuapp.com/
+// https://guvi-capstone-back-end.vercel.app
 // http://localhost:3001
